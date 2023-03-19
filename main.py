@@ -2,16 +2,16 @@ import time
 
 
 def set_time():
-    h = int(input("set hour : "))
-    m = int(input("set minute : "))
-    s = int(input("set second : "))
+    h = int(input("set hour in format 24h : "))
+    m = int(input("set minute in format 24h : "))
+    s = int(input("set second in format 24h : "))
     return h, m, s
 
 
 def set_alarm():
-    h = int(input("set alarm hour : "))
-    m = int(input("set alarm minute : "))
-    s = int(input("set alarm second : "))
+    h = int(input("set alarm hour in format 24h : "))
+    m = int(input("set alarm minute in format 24h : "))
+    s = int(input("set alarm second in format 24h : "))
     return h, m, s
 
 
@@ -36,33 +36,35 @@ def run_time(hour, minute, second):
     return hour, minute, second
 
 
-def print_time(hour, minute, second):
-    print('Time:{:02d}:{:02d}:{:02d}              '.format(
-        hour, minute, second), end='\r')
+def print_time(hour, minute, second,ampm):
+    print('Time:{:02d}:{:02d}:{:02d}'.format(
+        hour, minute, second),ampm, end='\r')
 
 
 def main():
-    format = input("choose your time format (24/12) :")
     alarm_hour, alarm_minute, alarm_second = alarm()
     hour, minute, second = set_time()
+    format = input("choose your time format (24/12) :")
     while True:
         time.sleep(1)
         hour, minute, second = run_time(hour, minute, second)
         if format == "24":
-            print_time(hour, minute, second)
+            print_time(hour, minute, second,"")
         elif f'{alarm_hour}:{alarm_minute}:{alarm_second}' == f'{hour}:{minute}:{second}':
-            print_time(hour, minute, second)
+            print_time(hour, minute, second,"")
             print('Its Time !!!! :  ')
         if format == "12":
             if hour > 12:
-                mini_hour = 0
-                print_time(mini_hour, minute, second)
-                if alarm_hour == mini_hour and alarm_minute == minute and alarm_second == second:
-                    print_time(mini_hour, minute, second)
+                mini_hour = 1
+                print_time(mini_hour, minute, second,"PM")
+            elif f'{alarm_hour}:{alarm_minute}:{alarm_second}' == f'{hour}:{minute}:{second}':
+                print_time(mini_hour, minute, second,"PM")
+                print('Its Time !!!! :  ')
             else:
-                print_time(hour, minute, second)
-                if alarm_hour == hour and alarm_minute == minute and alarm_second == second:
-                    print_time(hour, minute, second)
+                print_time(hour, minute, second,"AM")
+                if f'{alarm_hour}:{alarm_minute}:{alarm_second}' == f'{hour}:{minute}:{second}':
+                    print_time(hour, minute, second,"AM")
+                    print('Its Time !!!! :  ')
 
 
 main()
