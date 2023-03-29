@@ -36,9 +36,9 @@ def run_time(hour, minute, second):
     return hour, minute, second
 
 
-def print_time(hour, minute, second,ampm):
+def print_time(hour, minute, second, ampm):
     print('Time:{:02d}:{:02d}:{:02d}'.format(
-        hour, minute, second),ampm, end='\r')
+        hour, minute, second), ampm, end='\r')
 
 
 def main():
@@ -49,21 +49,21 @@ def main():
         time.sleep(1)
         hour, minute, second = run_time(hour, minute, second)
         if format == "24":
-            print_time(hour, minute, second,"")
-        elif f'{alarm_hour}:{alarm_minute}:{alarm_second}' == f'{hour}:{minute}:{second}':
-            print_time(hour, minute, second,"")
-            print('Its Time !!!! :  ')
+            print_time(hour, minute, second, "")
+            if f'{alarm_hour}:{alarm_minute}:{alarm_second}' == f'{hour}:{minute}:{second}':
+                print_time(hour, minute, second, "")
+                print('Its Time !!!! :  ')
         if format == "12":
+            mini_hour = 1
             if hour > 12:
-                mini_hour = 1
-                print_time(mini_hour, minute, second,"PM")
+                print_time(mini_hour, minute, second, "PM")
             elif f'{alarm_hour}:{alarm_minute}:{alarm_second}' == f'{hour}:{minute}:{second}':
-                print_time(mini_hour, minute, second,"PM")
+                print_time(mini_hour, minute, second, "PM")
                 print('Its Time !!!! :  ')
             else:
-                print_time(hour, minute, second,"AM")
+                print_time(hour, minute, second, "AM")
                 if f'{alarm_hour}:{alarm_minute}:{alarm_second}' == f'{hour}:{minute}:{second}':
-                    print_time(hour, minute, second,"AM")
+                    print_time(hour, minute, second, "AM")
                     print('Its Time !!!! :  ')
 
 
